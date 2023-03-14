@@ -38,8 +38,6 @@ app.UseRequestLocalization(new RequestLocalizationOptions
     DefaultRequestCulture = new RequestCulture("pt-PT"),
 });
 
-app.UseHttpsRedirection();
-
 app.MapGet("/loan", IResult (decimal loanAmount, int term, int age, decimal downPayment) =>
 {
     app.Logger.LogInformation(

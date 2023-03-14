@@ -8,7 +8,6 @@ namespace LoanApiUnitTests
         [InlineData(-10000, 30, 25, 0)]
         [InlineData(10000, 0, 25, 0)]
         [InlineData(10000, 30, 16, 0)]
-        [InlineData(10000, 30, 25, 0)]
         [InlineData(10000, 30, 25, -5000)]
         public void Constructor_ThrowsArgumentException(decimal loanAmount, int term, int age, decimal downPayment)
         {

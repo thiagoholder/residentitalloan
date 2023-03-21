@@ -1,19 +1,17 @@
 name: 'Change Docker Image'
 
 on:
-  workflow_dispatch:
-    push:
-      - main
+  push:
+    branches: [ main ]
 jobs:
   update_deployment:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout deployment repository
-          uses: actions/checkout@v2
+          uses: actions/checkout@v3
           with:
-            repository: thiagoholder/residencial-api
-            token: ${{ secrets.DEPLOYMENT_REPO_ACCESS_TOKEN }} # Um token de acesso pessoal com acesso ao repositório
-
+            repository: thiagoholder/residencial-api-config
+            token: ${{ secrets.DEPLOYMENT_REPO_ACCESS_TOKEN }}
         - name: Update deployment image
           run: |
             # Substitua a tag da imagem no arquivo deployment.yaml

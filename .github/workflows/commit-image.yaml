@@ -65,4 +65,23 @@ jobs:
           run: |
             docker tag ${{ env.IMAGE_DOCKER_AZURE }}:latest ${{ env.IMAGE_DOCKER_AZURE }}:$GITHUB_RUN_NUMBER
             docker push --all-tags ${{ env.IMAGE_DOCKER_AZURE }}
+  update_deployment:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout deployment repository
+          uses: actions/checkout@v3
+          with:
+            repository: thiagoholder/residencial-api-config
+            token: ${{ secrets.DEPLOYMENT_REPO_ACCESS_TOKEN }}
+        - name: Update deployment image
+          run: |
+            # Substitua a tag da imagem no arquivo deployment.yaml
+            sed -i 's#tomorrow.azurecr.io/residentloan:.*#'"tomorrow.azurecr.io/residentloan:$GITHUB_RUN_NUMBER"'#' ./residencial-api/deployment.yaml
+        - name: Setup Git and commit changes
+          run: |
+            git config user.name "GitHub Actions"
+            git config user.email "actions@users.noreply.github.com"
+            git add ./residencial-api/deployment.yaml
+            git commit -m "Update deployment image to $GITHUB_RUN_NUMBER"
+            git push
 

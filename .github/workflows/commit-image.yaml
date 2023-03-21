@@ -63,6 +63,6 @@ jobs:
             docker build . -f Dockerfile -t ${{ env.IMAGE_DOCKER_AZURE }}:latest
         - name: Geração de tag com número do Build e Push no Docker Azure Container
           run: |
-            docker tag ${{ env.IMAGE_DOCKERHUB }}:latest ${{ env.IMAGE_DOCKERHUB }}:$GITHUB_RUN_NUMBER
-            docker push --all-tags ${{ env.IMAGE_DOCKERHUB }}
+            docker tag ${{ env.IMAGE_DOCKER_AZURE }}:latest ${{ env.IMAGE_DOCKER_AZURE }}:$GITHUB_RUN_NUMBER
+            docker push --all-tags ${{ env.IMAGE_DOCKER_AZURE }}
 
